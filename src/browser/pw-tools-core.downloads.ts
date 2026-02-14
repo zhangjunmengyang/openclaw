@@ -28,7 +28,15 @@ function sanitizeDownloadFileName(fileName: string): string {
   // path separators/traversal can't escape the downloads dir on any platform.
   let base = path.posix.basename(trimmed);
   base = path.win32.basename(base);
-  base = base.replace(/[\u0000-\u001f\u007f]/g, "").trim();
+  let cleaned = "";
+  for (let i = 0; i < base.length; i++) {
+    const code = base.charCodeAt(i);
+    if (code < 0x20 || code === 0x7f) {
+      continue;
+    }
+    cleaned += base[i];
+  }
+  base = cleaned.trim();
 
   if (!base || base === "." || base === "..") {
     return "download.bin";
