@@ -91,6 +91,20 @@ export type DiscordIntentsConfig = {
   guildMembers?: boolean;
 };
 
+export type DiscordVoiceAutoJoinConfig = {
+  /** Guild ID that owns the voice channel. */
+  guildId: string;
+  /** Voice channel ID to join. */
+  channelId: string;
+};
+
+export type DiscordVoiceConfig = {
+  /** Enable Discord voice channel conversations (default: true). */
+  enabled?: boolean;
+  /** Voice channels to auto-join on startup. */
+  autoJoin?: DiscordVoiceAutoJoinConfig[];
+};
+
 export type DiscordExecApprovalConfig = {
   /** Enable exec approval forwarding to Discord DMs. Default: false. */
   enabled?: boolean;
@@ -196,6 +210,8 @@ export type DiscordAccountConfig = {
   ui?: DiscordUiConfig;
   /** Privileged Gateway Intents (must also be enabled in Discord Developer Portal). */
   intents?: DiscordIntentsConfig;
+  /** Voice channel conversation settings. */
+  voice?: DiscordVoiceConfig;
   /** PluralKit identity resolution for proxied messages. */
   pluralkit?: DiscordPluralKitConfig;
   /** Outbound response prefix override for this channel/account. */

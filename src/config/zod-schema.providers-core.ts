@@ -268,6 +268,21 @@ const DiscordUiSchema = z
   .strict()
   .optional();
 
+const DiscordVoiceAutoJoinSchema = z
+  .object({
+    guildId: z.string().min(1),
+    channelId: z.string().min(1),
+  })
+  .strict();
+
+const DiscordVoiceSchema = z
+  .object({
+    enabled: z.boolean().optional(),
+    autoJoin: z.array(DiscordVoiceAutoJoinSchema).optional(),
+  })
+  .strict()
+  .optional();
+
 export const DiscordAccountSchema = z
   .object({
     name: z.string().optional(),
@@ -341,6 +356,7 @@ export const DiscordAccountSchema = z
       })
       .strict()
       .optional(),
+    voice: DiscordVoiceSchema,
     pluralkit: z
       .object({
         enabled: z.boolean().optional(),
